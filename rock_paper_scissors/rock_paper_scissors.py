@@ -3,33 +3,36 @@ import random
 choices = ["rock", "paper", "scissors"]
 
 def start_game():
-    player = input("Choose rock, paper or scissors: ").lower()
     computer = random.choice(choices)
+    player = input("Choose rock, paper or scissors: ").lower().strip()
+    while player not in choices:
+        player = input("Invalid choice! Choose rock, paper or scissors: ").lower().strip()
     if player == computer:
         print(f"It's a tie! Both chose {player}.")
     elif (player == "rock" and computer == "scissors") or \
         (player == "paper" and computer == "rock") or \
         (player == "scissors" and computer == "paper"):
         print(f"You win! {player} beats {computer}.")
-    elif player not in choices:
-        print("You have to choose from: rock, paper or scissors.")
     else:
         print(f"Computer wins! {computer} beats {player}.")
 
-continue_playing = True
+def get_yes_no_input(prompt):
+    current_prompt = prompt
+    while True:
+        user_choice = input(current_prompt).lower().strip()
+        if user_choice in ["yes", "no"]:
+            return user_choice
+        else:
+            current_prompt = "Choose yes or no. "
 
-answer = input("Do you want to play rock paper or scissors? ").lower()
-while answer not in ["yes", "no"]:
-    answer = input("Choose yes or no. ")
+answer = get_yes_no_input("Do you want to play rock paper or scissors? ")
 if answer == "no":
-    continue_playing = False
+    print("Maybe next time.")
+else:
+    while True:
+        start_game()
+        answer = get_yes_no_input("Do you wanna try again? ")
+        if answer == "no":
+            break
 
-while continue_playing:
-    start_game()
-    answer = input("Do you wanna try again? ")
-    while answer not in ["yes", "no"]:
-        answer = input("Choose yes or no. ")
-    if answer == "no":
-        break
-
-print("Maybe next time.")
+print("Thank you for playing.")
