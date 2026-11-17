@@ -1,5 +1,4 @@
-import a_mad_libs_generator
-mad = a_mad_libs_generator
+import a_mad_libs_generator as mad
 
 adjective = "TESTadjective"
 noun = "TESTnoun"
